@@ -41,6 +41,11 @@ class Etablissement
      * @ORM\OneToOne(targetEntity=InfoEtablissement::class, mappedBy="etablissement", cascade={"persist", "remove"})
      */
     private $infoEtablissement;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity=Manager::class, inversedBy="etablissments")
+     */
+    private $manager;
 
     public function getId(): ?int
     {
@@ -108,6 +113,16 @@ class Etablissement
         }
 
         $this->infoEtablissement = $infoEtablissement;
+    }
+  
+    public function getManager(): ?Manager
+    {
+        return $this->manager;
+    }
+
+    public function setManager(?Manager $manager): self
+    {
+        $this->manager = $manager;
 
         return $this;
     }
