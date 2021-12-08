@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Etablissement;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,7 @@ class EtablissementType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('adresse')
+            ->add('adresse', TextareaType::class)
             ->add('siret')
             ->add('photo_etablissement');
     }
