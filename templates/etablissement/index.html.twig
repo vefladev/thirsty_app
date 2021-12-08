@@ -26,13 +26,17 @@
 					<td>{{ etablissement.siret }}</td>
 					<td>{{ etablissement.photoEtablissement }}</td>
 					<td>
-						<a href="{{ path('etablissement_show', {'id': etablissement.id}) }}">show</a>
-						<a href="{{ path('etablissement_edit', {'id': etablissement.id}) }}">edit</a>
-						{% if etablissement.infoEtablissement is same as(null) %}
-							<a href="{{ path('info_etablissement_new', {'id_etab': etablissement.id}) }}">add infos</a>
-						{% else %}
-							<a href="{{ path('info_etablissement_show', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}">show infos</a>
-							<a href="{{ path('info_etablissement_edit', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}">edit infos</a>
+						{% if app.user %}
+							{% if etablissement.manager.id == app.user.id %}
+								<a href="{{ path('etablissement_show', {'id': etablissement.id}) }}">show</a>
+								<a href="{{ path('etablissement_edit', {'id': etablissement.id}) }}">edit</a>
+								{% if etablissement.infoEtablissement is same as(null) %}
+									<a href="{{ path('info_etablissement_new', {'id_etab': etablissement.id}) }}">add infos</a>
+								{% else %}
+									<a href="{{ path('info_etablissement_show', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}">show infos</a>
+									<a href="{{ path('info_etablissement_edit', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}">edit infos</a>
+								{% endif %}
+							{% endif %}
 						{% endif %}
 					</td>
 				</tr>
