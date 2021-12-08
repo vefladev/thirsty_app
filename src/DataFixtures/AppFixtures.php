@@ -3,58 +3,67 @@
 namespace App\DataFixtures;
 
 use App\Entity\Etablissement;
+use App\Entity\InfoEtablissement;
+use App\Entity\Manager;
 use Faker\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-// use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
 
-
-    public function __construct()
+    public function __construct(UserPasswordHasherInterface $encoder)
     {
+        $this->encoder = $encoder;
     }
-    // private $encoder;
-
-    // public function __construct(UserPasswordHasherInterface $encoder)
-    // {
-    //     $this->encoder = $encoder;
-    // }
-
-    // les fixtures sont des fausses données qu'on peut charger dans la bdd pour des tests
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $omanager)
     {
 
         $faker = Factory::create('fr_FR');
-        // création d'un faux admin
-        // $admin  = new Etablissement;
-        // $admin->setPrenom($faker->firstName());
-        // $admin->setNom($faker->lastName());
-        // $admin->setEmail("admin@email.com");
-        // $password = $this->encoder->hashPassword($admin, 'admin');
-        // $admin->setPassword($password);
-        // $admin->setRoles(["ROLE_ADMIN"]);
-
-        // $manager->persist($etablissement);
-
-        // création d'un faux jeu de données users avec les données crée par faker
-        for ($e = 0; $e < 20; $e++) {
-            $etablissement  = new Etablissement;
+        for ($m = 0; $m < 7; $m++) {
+            $manager  = new Manager;
             $nom = $faker->lastName();
-            $etablissement->setNom("Le bar de $nom");
-            $adresse = $faker->address();
-            $etablissement->setAdresse($adresse);
-            $siret = $faker->phoneNumber();
-            $etablissement->setSiret($siret);
-            $photo_etablissement = $faker->imageUrl(400, 300, 'cats');
-            $etablissement->setPhotoEtablissement($photo_etablissement);
+            $prenom = $faker->firstName();
+            $manager->setNom($nom);
+            $manager->setPrenom($prenom);
+            $nomM =  lcfirst($nom);
+            $prenomM =  lcfirst($prenom);
+            $manager->setEmail("$nomM.$prenomM@mail.com");
+            $password = $this->encoder->hashPassword($manager, 'admin');
+            $manager->setPassword($password);
+            $immat = $faker->phoneNumber();
+            $manager->setImmatriculation($immat);
+            $date_de_naissance = $faker->dateTimeBetween('-60 years', '-18 years');
+            $manager->setDateDeNaissance($date_de_naissance);
+            $manager->setRoles(["ROLE_ADMIN"]);
 
+            $omanager->persist($manager);
+            for ($e = 0; $e < 3; $e++) {
+                $etablissement  = new Etablissement;
+                $nom = $faker->lastName();
+                $etablissement->setNom("Le bar de $nom");
+                $adresse = $faker->address();
+                $etablissement->setAdresse($adresse);
+                $siret = $faker->phoneNumber();
+                $etablissement->setSiret($siret);
+                $photo_etablissement = $faker->imageUrl(400, 300, 'cats');
+                $etablissement->setPhotoEtablissement($photo_etablissement);
+                $etablissement->setManager($manager);
 
+                $omanager->persist($etablissement);
 
-            $manager->persist($etablissement);
+                $info_etab = new InfoEtablissement;
+
+                $info_etab->setHoraires('11h00 - 02h00');
+                $info_etab->setDescription($faker->text);
+                $info_etab->setMenu('Ceci est une photo du menu');
+                $info_etab->setEtablissement($etablissement);
+
+                $omanager->persist($info_etab);
+            }
         }
-
-        $manager->flush();
+        $omanager->flush();
     }
 }

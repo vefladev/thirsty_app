@@ -1,41 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Etablissement index{% endblock %}
+{% block title %}Etablissement index
+{% endblock %}
 
 {% block body %}
-    <h1>Etablissement index</h1>
+	<h1>Etablissement index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Adresse</th>
-                <th>Siret</th>
-                <th>Photo_etablissement</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for etablissement in etablissements %}
-            <tr>
-                <td>{{ etablissement.id }}</td>
-                <td>{{ etablissement.nom }}</td>
-                <td>{{ etablissement.adresse }}</td>
-                <td>{{ etablissement.siret }}</td>
-                <td>{{ etablissement.photoEtablissement }}</td>
-                <td>
-                    <a href="{{ path('etablissement_show', {'id': etablissement.id}) }}">show</a>
-                    <a href="{{ path('etablissement_edit', {'id': etablissement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Adresse</th>
+				<th>Siret</th>
+				<th>Photo_etablissement</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for etablissement in etablissements %}
+				<tr>
+					<td>{{ etablissement.id }}</td>
+					<td>{{ etablissement.nom }}</td>
+					<td>{{ etablissement.adresse }}</td>
+					<td>{{ etablissement.siret }}</td>
+					<td>{{ etablissement.photoEtablissement }}</td>
+					<td>
+						<a href="{{ path('etablissement_show', {'id': etablissement.id}) }}">show</a>
+						<a href="{{ path('etablissement_edit', {'id': etablissement.id}) }}">edit</a>
+						{% if etablissement.infoEtablissement is same as(null) %}
+							<a href="{{ path('info_etablissement_new', {'id_etab': etablissement.id}) }}">add infos</a>
+						{% else %}
+							<a href="{{ path('info_etablissement_show', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}">show infos</a>
+							<a href="{{ path('info_etablissement_edit', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}">edit infos</a>
+						{% endif %}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <a href="{{ path('etablissement_new') }}">Create new</a>
+	<a href="{{ path('etablissement_new') }}">Create new</a>
 {% endblock %}
