@@ -24,23 +24,28 @@
 	<body>
 		<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#">Thirsty App</a>
+				<a class="navbar-brand" href="{{path('home')}}">Thirsty App</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">Accueil</a>
+							<a class="{{ app.request.get('_route') == 'home' ? 'active' }} nav-link" href="{{path('home')}}">Accueil</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="./#find">Trouver un resto/bar</a>
-						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item">
+								<a class="{{ app.request.get('_route') == 'admin' ? 'active' }} nav-link" href="{{path('admin')}}">Espace Admin</a>
+							</li>
+						{% endif %}
 					</ul>
-					<form class="d-flex">
-						<input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
-						<button class="btn btn-outline-info" type="submit">Rechercher</button>
-					</form>
+					<div class="d-flex">
+						{% if is_granted('ROLE_ADMIN') %}
+							<a class="btn btn-outline-info" href="{{path('app_logout')}}">Se déconnecter</a>
+						{% else %}
+							<a class="btn btn-outline-info" href="{{path('app_login')}}">Se connecter</a>
+						{% endif %}
+					</div>
 				</div>
 			</div>
 		</nav>
