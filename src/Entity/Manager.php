@@ -58,7 +58,7 @@ class Manager implements UserInterface, PasswordAuthenticatedUserInterface
     private $date_de_naissance;
 
     /**
-     * @ORM\OneToMany(targetEntity=etablissement::class, mappedBy="manager")
+     * @ORM\OneToMany(targetEntity=Etablissement::class, mappedBy="manager")
      */
     private $etablissments;
 
