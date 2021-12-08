@@ -37,6 +37,11 @@ class Etablissement
      */
     private $photo_etablissement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Manager::class, inversedBy="etablissments")
+     */
+    private $manager;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Etablissement
     public function setPhotoEtablissement(string $photo_etablissement): self
     {
         $this->photo_etablissement = $photo_etablissement;
+
+        return $this;
+    }
+
+    public function getManager(): ?Manager
+    {
+        return $this->manager;
+    }
+
+    public function setManager(?Manager $manager): self
+    {
+        $this->manager = $manager;
 
         return $this;
     }
