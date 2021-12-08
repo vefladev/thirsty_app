@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-3">
+				{% for etablissement in etablissements %}
+					<a href="{{ path('etablissement_show', {'id': etablissement.id}) }}">{{ etablissement.nom }}</a><br>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
