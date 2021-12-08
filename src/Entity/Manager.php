@@ -6,11 +6,13 @@ use App\Repository\ManagerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ManagerRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class Manager implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -58,7 +60,7 @@ class Manager implements UserInterface, PasswordAuthenticatedUserInterface
     private $date_de_naissance;
 
     /**
-     * @ORM\OneToMany(targetEntity=etablissement::class, mappedBy="manager")
+     * @ORM\OneToMany(targetEntity=Etablissement::class, mappedBy="manager")
      */
     private $etablissments;
 

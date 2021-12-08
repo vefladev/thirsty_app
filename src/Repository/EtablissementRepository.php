@@ -47,4 +47,13 @@ class EtablissementRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllByManagerId($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.manager = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
 }

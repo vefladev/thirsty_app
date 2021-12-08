@@ -6,10 +6,11 @@ use App\Entity\Manager;
 use App\Form\ManagerType;
 use App\Repository\ManagerRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\EtablissementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/manager')]
 class ManagerController extends AbstractController
@@ -43,10 +44,12 @@ class ManagerController extends AbstractController
     }
 
     #[Route('/{id}', name: 'manager_show', methods: ['GET'])]
-    public function show(Manager $manager): Response
+    public function show(Manager $manager, EtablissementRepository $etablissementRepository): Response
     {
+        $etablishments = $etablissementRepository->findAllByManagerId($manager->getId());
         return $this->render('manager/show.html.twig', [
             'manager' => $manager,
+            'etablishments' => $etablishments
         ]);
     }
 

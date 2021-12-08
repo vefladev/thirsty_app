@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Etablissement;
+use App\Entity\InfoEtablissement;
 use App\Entity\Manager;
 use Faker\Factory;
 use Doctrine\Persistence\ObjectManager;
@@ -52,6 +53,15 @@ class AppFixtures extends Fixture
                 $etablissement->setManager($manager);
 
                 $omanager->persist($etablissement);
+
+                $info_etab = new InfoEtablissement;
+
+                $info_etab->setHoraires('11h00 - 02h00');
+                $info_etab->setDescription($faker->text);
+                $info_etab->setMenu('Ceci est une photo du menu');
+                $info_etab->setEtablissement($etablissement);
+
+                $omanager->persist($info_etab);
             }
         }
         $omanager->flush();

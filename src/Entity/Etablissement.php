@@ -38,6 +38,11 @@ class Etablissement
     private $photo_etablissement;
 
     /**
+     * @ORM\OneToOne(targetEntity=InfoEtablissement::class, mappedBy="etablissement", cascade={"persist", "remove"})
+     */
+    private $infoEtablissement;
+    
+    /**
      * @ORM\ManyToOne(targetEntity=Manager::class, inversedBy="etablissments")
      */
     private $manager;
@@ -95,6 +100,21 @@ class Etablissement
         return $this;
     }
 
+    public function getInfoEtablissement(): ?InfoEtablissement
+    {
+        return $this->infoEtablissement;
+    }
+
+    public function setInfoEtablissement(InfoEtablissement $infoEtablissement): self
+    {
+        // set the owning side of the relation if necessary
+        if ($infoEtablissement->getEtablissement() !== $this) {
+            $infoEtablissement->setEtablissement($this);
+        }
+
+        $this->infoEtablissement = $infoEtablissement;
+    }
+  
     public function getManager(): ?Manager
     {
         return $this->manager;
