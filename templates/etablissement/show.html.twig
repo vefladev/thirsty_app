@@ -31,10 +31,12 @@
 		</tbody>
 	</table>
 
-	{% if app.user.id == etablissement.manager.id %}
-		<a href="{{ path('etablissement_edit', { 'id': etablissement.id }) }}\">
-			edit</a>
+	{% if app.user %}
+		{% if etablissement.manager.id == app.user.id %}
+			<a href="{{ path('etablissement_edit', { 'id': etablissement.id }) }}\">
+				edit</a>
 
-		{{ include('etablissement/_delete_form.html.twig') }}
+			{{ include('etablissement/_delete_form.html.twig') }}
+		{% endif %}
 	{% endif %}
 {% endblock %}
