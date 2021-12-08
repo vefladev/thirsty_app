@@ -4,34 +4,34 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+	<main class="homepage-wrapper">
 
-	<div class="example-wrapper">
-		<h1>Salut l'Équipe 3! ✅</h1>
+		<div class="beer">
+			<div class="caption">
+				<h1>THIRSTY APP</h1>
+				<h2>L’ application qui va révolutionner vos soirées</h2>
+			</div>
+		</div>
+		<div class="container">
+			<h2 id="find">Trouve ton resto / bar</h2>
 
-		This friendly message is coming from:
-		<ul>
-			<li>Your controller at
-				<code>
-					<a href="{{ '/Applications/MAMP/htdocs/thirsty_app/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a>
-				</code>
-			</li>
-			<li>Your template at
-				<code>
-					<a href="{{ '/Applications/MAMP/htdocs/thirsty_app/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a>
-				</code>
-			</li>
-		</ul>
-	</div>
+			<div class="row g-4">
+				{% for etablissement in etablissements %}
+				<div class="col-4">
+					<div class="card">
+						<img src="./img/bar.jpg" class="card-img-top" alt="Photo de {{ etablissement.nom }}">
+						<div class="card-body">
+							<h5 class="card-title">{{etablissement.nom}}</h5>
+							<h6 class="card-subtitle mb-2 text-muted">{{etablissement.adresse}}</h6>
+							<div class="d-flex justify-content-end mt-3">
+							<a href="{{ path('info_etablissement_show', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}" class="btn btn-secondary-color fw-bold">Plus d'infos  <i class="fas fa-arrow-right ms-2"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+
 {% endblock %}

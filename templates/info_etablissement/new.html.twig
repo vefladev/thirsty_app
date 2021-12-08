@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout d'infos pour {{ etablissement.nom }}
+{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center flex-wrap p-4 col-sm-10 col-md-8 col-lg-6 mx-auto">
+	<h1>Créer des informations pour
+		{{ etablissement.nom }}</h1>
+	<a href="{{ path('admin') }}"> <i class="fas fa-arrow-left me-2"></i> Retour</a>
+</div>
+	{{ include('info_etablissement/_form.html.twig') }}
+
+{% endblock %}

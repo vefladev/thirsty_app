@@ -1,6 +1,142 @@
 :root, body {
-    background: #333333;
+    background: #2c3034;
     color: white;
     --primary-color: #FFA90A;
+    --primary-color-light: #ffb942;
+    --primary-color-dark: #ea9707;
     --secondary-color: #8A5DAC;
+    --secondary-color-light: #9e6bc4;
+    --secondary-color-dark: #764f93;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font: 400 0.9375rem/1.8 Arial, sans-serif;
+}
+
+.btn-primary-color {
+    color: white;
+    text-decoration: none;
+    background-color: var(--primary-color);
+}
+
+.btn-primary-color:hover, .btn-primary-color:focus {
+    color: white;
+    text-decoration: none;
+    background-color: var(--primary-color-dark);
+    box-shadow: none;
+}
+
+.btn-secondary-color {
+    color: white;
+    text-decoration: none;
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary-color:hover, .btn-secondary-color:focus {
+    color: white;
+    text-decoration: none;
+    background-color: var(--secondary-color-dark);
+    box-shadow: none;
+}
+
+/* NAV BAR */
+
+nav.navbar {
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+}
+
+/** HOMEPAGE **/
+
+.beer {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("../img/beer_bg_xxl.jpg");
+    height: calc(100vh - 90px);
+}
+
+.caption {
+    position: absolute;
+    left: 0;
+    top: 40%;
+    width: 100%;
+    text-align: left;
+    color: white;
+    padding-left: 20%;
+}
+
+.caption h1 {
+    font-size: 3rem;
+    letter-spacing: 0.5rem;
+}
+
+.caption h2 {
+    font-size: 1.5rem;
+}
+
+
+h2:not(.caption h2) {
+    margin: 2rem 0;
+}
+
+.card {
+    background: #2c3034;
+    box-shadow: 0 0 10px #212529;
+}
+
+
+/* info page */
+
+.info-header-wrapper {
+    height: 40vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-header-wrapper .info-header {
+    position: relative;
+    background-color: rgba(44, 48, 52, 0.7);
+    z-index: 99;
+}
+
+.info-header-wrapper .info-img {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 0;
+}
+
+.info-header-wrapper + div {
+    width: 80%;
+}
+
+.card.info {
+    padding-top: 20px;
+    margin-top: -5vh;
+    min-height: 30vh;
+}
+
+/* forms */
+
+.form-wrapper {
+    box-shadow: 0 0 10px #212529;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .info-header-wrapper {
+        height: 30vh;
+    }
+
+    .info-header-wrapper + div {
+        width: 100%;
+    }
 }

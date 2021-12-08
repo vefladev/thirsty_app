@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Infos sur {{ info_etablissement.etablissement.nom }}
+{% endblock %}
+
+{% block body %}
+    <div class="info-header-wrapper">
+
+        <img src="/img/bar.jpg" class="info-img" alt="Photo de {{ info_etablissement.etablissement.nom }}">
+        <div class="info-header">
+            <div class="d-flex justify-content-between align-items-center flex-wrap p-4 w-75 mx-auto">
+                <h1>{{ info_etablissement.etablissement.nom }}</h1>
+                <div class="d-flex">
+
+                    {% if app.user %}
+                        {% if info_etablissement.etablissement.manager.id == app.user.id %}
+                            <a href="{{ path('admin') }}" class="btn btn-primary-color mx-1"><i
+                                        class="fas fa-arrow-left me-2"></i> Retour</a>
+                            <a href="{{ path('info_etablissement_edit', {'id_etab': info_etablissement.etablissement.id, 'id': info_etablissement.id}) }}"
+                               class="btn btn-secondary-color ">
+                                <i class="fas fa-pen"></i>
+                            </a>
+
+                            {{ include('info_etablissement/_delete_form.html.twig') }}
+                        {% else %}
+                            <a href="{{ path('home') }}" class="btn btn-primary-color mx-1"><i
+                                        class="fas fa-arrow-left me-2"></i> Retour</a>
+
+                        {% endif %}
+                    {% else %}
+                        <a href="{{ path('home') }}" class="btn btn-primary-color mx-1"><i
+                                    class="fas fa-arrow-left me-2"></i>
+                            Retour</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="px-4 mx-auto my-4">
+        <div class="card info">
+
+            <div class="card-body text-center">
+                <h5 class="card-title mb-4">Horaires : {{ info_etablissement.horaires }}</h5>
+                <h6 class="card-subtitle mb-4 text-muted">{{ info_etablissement.description }}</h6>
+                <p class="card-subtitle mb-2 text-muted">{{ info_etablissement.menu }}</p>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
