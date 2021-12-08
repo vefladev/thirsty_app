@@ -1,0 +1,6 @@
+:root, body {
+    background: #333333;
+    color: white;
+    --primary-color: #FFA90A;
+    --secondary-color: #8A5DAC;
+}

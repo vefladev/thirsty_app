@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,14 +11,41 @@
 		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
+
+			<link href="{{ asset('./bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
+			<link href="{{ asset('./css/style.css') }}" rel="stylesheet" />
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
 		{% block javascripts %}
+			<script src= "{{ asset('./bootstrap/js/bootstrap.js') }}"></script>
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
 	<body>
-		{% block body %}{% endblock %}
+	<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Thirsty App</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Accueil</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="./#find">Trouver un resto/bar</a>
+					</li>
+				</ul>
+				<form class="d-flex">
+					<input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Rechercher">
+					<button class="btn btn-outline-info" type="submit">Rechercher</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
+	{% block body %}{% endblock %}
 	</body>
 </html>
