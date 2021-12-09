@@ -30,10 +30,11 @@ class EtablissementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $etablissement->setManager($this->getUser());
             $entityManager->persist($etablissement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('etablissement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('etablissement/new.html.twig', [
