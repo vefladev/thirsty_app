@@ -32,7 +32,7 @@ class InfoEtablissementController extends AbstractController
             $entityManager->persist($infoEtablissement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('etablissement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('info_etablissement/new.html.twig', [
@@ -59,7 +59,7 @@ class InfoEtablissementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('etablissement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('info_etablissement/edit.html.twig', [
