@@ -17,18 +17,22 @@
 
 			<div class="row g-4">
 				{% for etablissement in etablissements %}
-				<div class="col-4">
-					<div class="card">
-						<img src="./img/bar.png" class="card-img-top" alt="Photo de {{ etablissement.nom }}">
-						<div class="card-body">
-							<h5 class="card-title">{{etablissement.nom}}</h5>
-							<h6 class="card-subtitle mb-2 text-muted">{{etablissement.adresse}}</h6>
-							<div class="d-flex justify-content-end mt-3">
-							<a href="{{ path('info_etablissement_show', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}" class="btn btn-secondary-color fw-bold">Plus d'infos  <i class="fas fa-arrow-right ms-2"></i></a>
+					<div class="col-4">
+						<div class="card">
+							<img src="./img/bar.png" class="card-img-top" alt="Photo de {{ etablissement.nom }}">
+							<div class="card-body">
+								<h5 class="card-title">{{etablissement.nom}}</h5>
+								<h6 class="card-subtitle mb-2 text-muted">{{etablissement.adresse}}</h6>
+								<div class="d-flex justify-content-end mt-3">
+									{% if etablissement.infoEtablissement %}
+										<a href="{{ path('info_etablissement_show', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}" class="btn btn-secondary-color fw-bold">Plus d'infos
+											<i class="fas fa-arrow-right ms-2"></i>
+										</a>
+									{% endif %}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 				{% endfor %}
 			</div>
 		</div>
