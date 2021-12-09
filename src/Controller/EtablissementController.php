@@ -59,7 +59,7 @@ class EtablissementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('etablissement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('etablissement/edit.html.twig', [
@@ -76,6 +76,6 @@ class EtablissementController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('etablissement_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
     }
 }

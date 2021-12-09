@@ -5,13 +5,26 @@
 
 {% block body %}
 
-	<div class="container">
-		<div class="row">
-			<div class="col-3">
-				{% for etablissement in etablissements %}
-					<a href="{{ path('etablissement_show', {'id': etablissement.id}) }}">{{ etablissement.nom }}</a><br>
-				{% endfor %}
-			</div>
+	<div class="container p-4">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<h1 class="text-center">Espace d'administration</h1>
+			<a href="{{ path('etablissement_new') }}" class="btn btn-primary-color">Créer un nouveau restaurant <i class="fas fa-plus ms-2"></i></a>
+		</div>
+		<div class="row g-4">
+			{% for etablissement in etablissements %}
+				<div class="col-4">
+					<div class="card">
+						<img src="./img/bar.png" class="card-img-top" alt="Photo de {{ etablissement.nom }}">
+						<div class="card-body">
+							<h5 class="card-title">{{etablissement.nom}}</h5>
+							<h6 class="card-subtitle mb-2 text-muted">{{etablissement.adresse}}</h6>
+							<div class="d-flex justify-content-end mt-3">
+								<a href="{{ path('etablissement_show', {'id': etablissement.id}) }}" class="btn btn-secondary-color fw-bold">Plus d'infos  <i class="fas fa-arrow-right ms-2"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
 		</div>
 	</div>
 

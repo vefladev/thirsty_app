@@ -1,42 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Etablissement
+{% block title %}{{ etablissement.nom }}
 {% endblock %}
 
 {% block body %}
-	<h1>Etablissement</h1>
+    <div class="d-flex justify-content-between align-items-center flex-wrap p-4 w-75 mx-auto">
+        <h1>Etablissement</h1>
+        <div class="d-flex">
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ etablissement.id }}</td>
-			</tr>
-			<tr>
-				<th>Nom</th>
-				<td>{{ etablissement.nom }}</td>
-			</tr>
-			<tr>
-				<th>Adresse</th>
-				<td>{{ etablissement.adresse }}</td>
-			</tr>
-			<tr>
-				<th>Siret</th>
-				<td>{{ etablissement.siret }}</td>
-			</tr>
-			<tr>
-				<th>Photo_etablissement</th>
-				<td>{{ etablissement.photoEtablissement }}</td>
-			</tr>
-		</tbody>
-	</table>
+            {% if app.user %}
+                {% if etablissement.manager.id == app.user.id %}
+                    <a href="{{ path('etablissement_edit', { 'id': etablissement.id }) }}"
+                       class="btn mx-1 btn-primary-color ">
+                        <i class="fas fa-pen"></i></a>
 
-	{% if app.user %}
-		{% if etablissement.manager.id == app.user.id %}
-			<a href="{{ path('etablissement_edit', { 'id': etablissement.id }) }}\">
-				edit</a>
+                    {{ include('etablissement/_delete_form.html.twig') }}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="px-4 w-75 mx-auto">
+        <table class="table table-dark">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ etablissement.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ etablissement.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ etablissement.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Siret</th>
+                <td>{{ etablissement.siret }}</td>
+            </tr>
+            <tr>
+                <th>Photo_etablissement</th>
+                <td>{{ etablissement.photoEtablissement }}</td>
+            </tr>
+            </tbody>
+        </table>
 
-			{{ include('etablissement/_delete_form.html.twig') }}
-		{% endif %}
-	{% endif %}
+        {% if app.user %}
+            {% if etablissement.manager.id == app.user.id %}
+                {% if etablissement.infoEtablissement is same as(null) %}
+                    <a href="{{ path('info_etablissement_new', {'id_etab': etablissement.id}) }}" class="btn btn-primary-color">Ajouter les infos client</a>
+                {% else %}
+                    <a href="{{ path('info_etablissement_show', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}" class="btn btn-primary-color me-2">Voir les infos client</a>
+                    <a href="{{ path('info_etablissement_edit', {'id_etab': etablissement.id, 'id': etablissement.infoEtablissement.id}) }}" class="btn btn-secondary-color">Modifier les infos client
+                    </a>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+
 {% endblock %}
