@@ -25,7 +25,6 @@ class InfoEtablissementController extends AbstractController
         $infoEtablissement = new InfoEtablissement();
         $form = $this->createForm(InfoEtablissementType::class, $infoEtablissement);
         $form->handleRequest($request);
-        // dd($form->getData());
         if ($form->isSubmitted() && $form->isValid()) {
             $infoEtablissement->setEtablissement($etablissement);
 
@@ -76,6 +75,6 @@ class InfoEtablissementController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('etablissement_index');
+        return $this->redirectToRoute('admin');
     }
 }
